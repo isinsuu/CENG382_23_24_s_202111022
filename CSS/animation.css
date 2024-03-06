@@ -1,0 +1,22 @@
+#btn-register, #btn-login{
+    transition: background-color 0.5s ease;
+}
+
+#btn-register:hover, #btn-login:hover{
+    background-color:rgb(206, 226, 247);
+    color: midnightblue;
+}
+
+#btn-register:active, #btn-login:active{
+    transform: scale(.9);
+}
+
+.reservations tr{
+    transition: background-color 0.5s ease;
+    transition: color 0.5s ease;
+}
+
+.reservations tr:hover{
+    background-color: midnightblue;
+    color: whitesmoke;
+}
