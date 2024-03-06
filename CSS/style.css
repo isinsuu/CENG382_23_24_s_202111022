@@ -1,0 +1,103 @@
+body{
+    font-family:"Montserrat", "consolas", sans-serif;
+}
+
+.login-container{
+    margin-top: 50px;
+    text-align: center;
+}
+
+form.login {
+    background-color:whitesmoke;
+    display: inline-block;
+    text-align: left;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.login label{
+    margin: 5px 5px;
+}
+
+.login input{
+    height: 20px;
+    margin: 5px 5px;
+    border-color: midnightblue;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 0.5px;
+    width: 95%;
+}
+
+#btn-login{
+    background-color: midnightblue;
+    color:whitesmoke;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.register-container{
+    margin-top: 50px;
+    text-align: center;
+}
+
+form.register {
+    background-color:whitesmoke;
+    display: inline-block;
+    text-align: left;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.register label{
+    margin: 5px 5px;
+}
+
+.register input{
+    height: 20px;
+    margin: 5px 5px;
+    border-color: midnightblue;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 0.5px;
+    width: 95%;
+}
+
+#btn-register{
+    background-color: midnightblue;
+    color:whitesmoke;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+#reservation-header{
+    text-align: center;;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: whitesmoke;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(206, 226, 247);;
+}
