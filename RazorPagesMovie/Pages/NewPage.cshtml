@@ -3,7 +3,22 @@
 @{
 }
   <main>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <form id="calculator" style="display:none;">
+        <h2>Addition Calculator</h2>
+        <label for="num1">Number 1:</label>
+        <input type="number" id="num1" required>
+        <br><br>
+        <label for="num2">Number 2:</label>
+        <input type="number" id="num2" required>
+        <br><br>
+        <input type="button" value="Calculate" onclick="calculate()">
+        <div id="result"></div>
+    </form><br>
+
+    <button onclick="elementVisibility()">Hide/Show</button>
+    <button onclick="showCalculator()">Show Calculator</button>
+
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center" id="itemToToggle">
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
           <div class="card-header py-3">
@@ -113,3 +128,5 @@
       </table>
     </div>
   </main>
+
+  <script src="~/js/script.js"></script>

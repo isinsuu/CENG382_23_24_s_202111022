@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YBCkwi7iXTrUzUcsgW+u862yzFbqYhrXmDqIuEnLhQw=",
+  "Hash": "640PtWoHIAFNcLRNt1lkvIARSivy7sMYr40GxBmyAUY=",
   "Source": "RazorPagesMovie",
   "BasePath": "_content/RazorPagesMovie",
   "Mode": "Default",
@@ -148,6 +148,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\color-modes.js"
+    },
+    {
+      "Identity": "C:\\Users\\90505\\Desktop\\CENG382\\CENG382_23_24_s_202111022\\RazorPagesMovie\\wwwroot\\js\\script.js",
+      "SourceId": "RazorPagesMovie",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\90505\\Desktop\\CENG382\\CENG382_23_24_s_202111022\\RazorPagesMovie\\wwwroot\\",
+      "BasePath": "_content/RazorPagesMovie",
+      "RelativePath": "js/script.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\script.js"
     },
     {
       "Identity": "C:\\Users\\90505\\Desktop\\CENG382\\CENG382_23_24_s_202111022\\RazorPagesMovie\\wwwroot\\js\\site.js",
