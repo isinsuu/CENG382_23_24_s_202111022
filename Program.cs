@@ -3,6 +3,28 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+public class States{
+
+    public string name  { get; set; }
+    public int roomNumber  { get; set; }
+    public string enter { get; set; }
+    public string exit { get; set; }
+
+    public States(string Name,int RoomNumber, string Enter, string Exit){
+        name = Name;
+        roomNumber = RoomNumber;
+        enter = Enter;
+        exit = Exit;
+    }
+    public void displayProperty(){
+        Console.WriteLine($"Name: {name}");
+        Console.WriteLine($"Room Number: {roomNumber}");
+        Console.WriteLine($"Enterance Day: {enter}");
+        Console.WriteLine($"Exit Day: {exit}\n");
+    }
+
+}
+
 public class RoomData
 {
     [JsonPropertyName("Room")]
@@ -32,6 +54,7 @@ public class Reservation
 
 public class ReservationHandler
 {
+
     private Reservation[,] reservations;
     private RoomData roomData;
 
@@ -43,6 +66,7 @@ public class ReservationHandler
 
     public void AddReservation(Reservation reservation)
     {
+
         int startIndex = reservation.Date.Day - 1;
         int numberOfDays = reservation.Time.Day - startIndex;
         int roomIndex = int.Parse(reservation.Room.RoomId) - 1;
@@ -57,7 +81,7 @@ public class ReservationHandler
         {
             if (reservations[roomIndex, i] != null)
             {
-                Console.WriteLine($"Reservation overlap detected on {reservation.Date.AddDays(i - startIndex):MM/dd/yyyy}");
+                Console.WriteLine($"Reservation overlap detected on {reservation.Date.AddDays(i - startIndex):dd/MM/yyyy}");
                 return;
             }
         }
@@ -88,7 +112,7 @@ public class ReservationHandler
 
     public void DisplayWeeklySchedule()
     {
-        Console.WriteLine("Weekly Schedule of Reservations:");
+        Console.WriteLine("\nWeekly Schedule of Reservations:");
         for (int i = 0; i < reservations.GetLength(0); i++)
         {
             Console.WriteLine($"Room {i + 1} - {roomData.Rooms[i].RoomName}:");
@@ -107,11 +131,17 @@ public class ReservationHandler
 class Program
 {
     static void Main(string[] args)
-    {
+    {   
         string jsonFilePath = "Data.json";
 
         try
         {
+            States state1 = new States("isinsu", 1, "8/11/2024", "13/11/2024");
+            States state2 = new States("melike", 2, "8/10/2024", "13/10/2024");
+            States state3 = new States("emre", 3, "8/9/2024", "13/9/2024");
+            States state4 = new States("omer", 4, "8/6/2024", "13/6/2024");  
+            States selectedState = null;
+
             string jsonString = File.ReadAllText(jsonFilePath);
 
             var options = new JsonSerializerOptions
@@ -137,30 +167,46 @@ class Program
                 {
                     case 1:
 
-                        Console.WriteLine("\nAll the Rooms:");
-                        for (int i = 0; i < roomData.Rooms.Length; i++)
+                        Console.WriteLine("Select state 1:");
+                        state1.displayProperty();
+                        Console.WriteLine("Select state 2:");
+                        state2.displayProperty();
+                        Console.WriteLine("Select state 3:");
+                        state3.displayProperty();
+                        Console.WriteLine("Select state 4:");
+                        state4.displayProperty();
+
+                        int selection2 = int.Parse(Console.ReadLine());
+
+                        switch (selection2)
                         {
-                            Console.WriteLine($"{i + 1}. {roomData.Rooms[i].RoomName}");
+                            case 1:
+                                selectedState = state1;
+                                break;
+                            case 2:
+                                selectedState = state2;
+                                break;
+                            case 3:
+                                selectedState = state3;
+                                break;
+                            case 4:
+                                selectedState = state4;
+                                break;
+                            default:
+                                Console.WriteLine("Invalid input, please try again.");
+                                break;
                         }
+                        
 
-                        Console.Write("Enter reserver name: ");
-                        string reserverName = Console.ReadLine();
+                        string reserverName = selectedState.name;
 
-                        Console.Write("Select the room you want to reserve (Enter room number): ");
-                        int roomIndex = int.Parse(Console.ReadLine()) - 1;
+                        int roomIndex = selectedState.roomNumber - 1;
 
-                        if (roomIndex < 0 || roomIndex >= roomData.Rooms.Length)
-                        {
-                            Console.WriteLine("Invalid room selection. Such room does not exist.");
-                            break;
-                        }
+                        DateTime date = DateTime.Parse(selectedState.enter);
 
-                        Console.Write("Enter the entrance day for your reservation (DD/MM/YYYY): ");
-                        DateTime date = DateTime.Parse(Console.ReadLine());
+                        DateTime time = DateTime.Parse(selectedState.exit);
 
-                        Console.Write("Enter the exit day for your reservation (DD/MM/YYYY): ");
-                        DateTime time = DateTime.Parse(Console.ReadLine());
-
+        
                         Reservation newReservation = new Reservation
                         {
                             Date = date,
@@ -186,8 +232,11 @@ class Program
 
                     case 4:
                         programOn = false;
-                        Console.WriteLine("I hope you enjoyed our service!");
+                        Console.WriteLine("\nI hope you enjoyed our service!");
                         break;
+                    default:
+                        Console.WriteLine("Invalid input, please try again.");
+                        break;    
                 }
             }
         }
