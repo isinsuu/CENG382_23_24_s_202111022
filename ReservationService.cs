@@ -4,11 +4,10 @@ using System.Collections.Generic;
 public class ReservationService
 {
     private readonly ReservationHandler _reservationHandler;
-    private readonly ReservationRepository _reservationRepository;
-
+    private readonly IReservationRepository _reservationRepository;
     private readonly Reservation reservation1;
 
-    public ReservationService(ReservationHandler reservationHandler, ReservationRepository reservationRepository)
+    public ReservationService(ReservationHandler reservationHandler, IReservationRepository reservationRepository)
     {
         _reservationHandler = reservationHandler;
         _reservationRepository = reservationRepository;
@@ -29,11 +28,11 @@ public class ReservationService
         }
     }
 
-    public bool DeleteReservationByName(string reserverName)
+    public bool DeleteReservationByName(string reserverName, string roomNumber, string day, DateTime enterTime)
     {
         try
         {
-            _reservationHandler.DeleteReservationByName(reserverName);
+            _reservationHandler.DeleteReservationByName(reserverName, roomNumber, day, enterTime);
             _reservationRepository.DeleteReservation(reserverName);
             return true; // Successfully deleted reservation(s)
         }

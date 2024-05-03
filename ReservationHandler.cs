@@ -1,9 +1,11 @@
 public class ReservationHandler
 {
+    private IReservationRepository _reservationRepository;
+    private LogHandler _logHandler;
     private Dictionary<string, Dictionary<Room, List<(DateTime, string)>>> weeklyReservations;
     private TimeSpan breakTime = TimeSpan.FromMinutes(40);
 
-    public ReservationHandler(RoomData roomData)
+    public ReservationHandler(RoomData roomData, IReservationRepository reservationRepository, LogHandler logHandler)
     {
         weeklyReservations = new Dictionary<string, Dictionary<Room, List<(DateTime, string)>>>();
 
@@ -20,6 +22,9 @@ public class ReservationHandler
                 weeklyReservations[day.ToString()][room] = new List<(DateTime, string)>();
             }
         }
+
+        _reservationRepository = reservationRepository;
+        _logHandler = logHandler;
     }
 
     public void AddReservation(string day, string roomNumber, string reserverName, DateTime enterTime)
@@ -37,9 +42,11 @@ public class ReservationHandler
 
         reservations.Add((enterTime, reserverName));
         Console.WriteLine($"Reservation added on {day} at {enterTime:hh:mm tt} for room {roomNumber}.");
+
+        _logHandler.AddLog(new LogRecord(enterTime, day, reserverName, roomNumber, "Added"));
     }
 
-    public void DeleteReservationByName(string reserverName)
+    public void DeleteReservationByName(string reserverName, string roomNumber, string day, DateTime enterTime)
     {
         foreach (var dayReservations in weeklyReservations.Values)
         {
@@ -49,6 +56,8 @@ public class ReservationHandler
             }
         }
         Console.WriteLine($"\nReservations made by {reserverName} have been removed.\n");
+
+        _logHandler.AddLog(new LogRecord(enterTime, day, reserverName, roomNumber, "Deleted"));
     }
 
     public void PrintWeeklySchedule()

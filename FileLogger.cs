@@ -10,16 +10,26 @@ public class FileLogger : ILogger
     public FileLogger(string logFilePath)
     {
         this.logFilePath = logFilePath;
+        // Ensure the log file is initialized properly
+        if (!File.Exists(logFilePath) || File.ReadAllText(logFilePath).Trim() == "")
+        {
+            File.WriteAllText(logFilePath, JsonSerializer.Serialize(new List<LogRecord>(), new JsonSerializerOptions { WriteIndented = true }));
+        }
     }
 
     public void Log(LogRecord log)
     {
         var logs = new List<LogRecord>();
 
-        if (File.Exists(logFilePath))
+        try
         {
             var jsonString = File.ReadAllText(logFilePath);
             logs = JsonSerializer.Deserialize<List<LogRecord>>(jsonString) ?? new List<LogRecord>();
+        }
+        catch (JsonException ex)
+        {
+            Console.WriteLine("Failed to deserialize the log file. Error: " + ex.Message);
+            logs = new List<LogRecord>();
         }
 
         logs.Add(log);
@@ -28,3 +38,5 @@ public class FileLogger : ILogger
         File.WriteAllText(logFilePath, updatedJsonString);
     }
 }
+
+
