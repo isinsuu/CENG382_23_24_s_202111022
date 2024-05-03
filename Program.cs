@@ -42,12 +42,6 @@ class Program
 
         try
         {
-            /*States state1 = new States("Isinsu", "001", "Tuesday", "10:20");
-            States state2 = new States("Ceyda", "001", "Tuesday", "10:20");
-            States state3 = new States("Sila", "002", "Tuesday", "10:20");
-            States state4 = new States("Emre", "003", "Monday", "10:00");
-            States selectedState = null;*/
-
             Dictionary<string, States> statesDictionary = new Dictionary<string, States>
             {
                 {"Isinsu", new States("Isinsu", "001", "Tuesday", "10:20")},
@@ -73,37 +67,6 @@ class Program
                 switch (selection)
                 {
                     case 1:
-
-                        /*Console.WriteLine("Select state 1:");
-                        state1.displayProperty();
-                        Console.WriteLine("Select state 2:");
-                        state2.displayProperty();
-                        Console.WriteLine("Select state 3:");
-                        state3.displayProperty();
-                        Console.WriteLine("Select state 4:");
-                        state4.displayProperty();
-
-                        int selection2 = int.Parse(Console.ReadLine());
-
-                        switch (selection2)
-                        {
-                            case 1:
-                                selectedState = state1;
-                                break;
-                            case 2:
-                                selectedState = state2;
-                                break;
-                            case 3:
-                                selectedState = state3;
-                                break;
-                            case 4:
-                                selectedState = state4;
-                                break;
-                            default:
-                                Console.WriteLine("Invalid input.");
-                                break;
-                        }*/
-
                         int index = 1;
                         foreach (var state in statesDictionary)
                         {

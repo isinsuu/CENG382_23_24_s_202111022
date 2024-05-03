@@ -2,20 +2,6 @@
   {
     "timestamp": "2024-05-03T10:20:00",
     "dayName": "Tuesday",
-    "ReserverName": "Isinsu",
-    "RoomName": "001",
-    "action": "Added"
-  },
-  {
-    "timestamp": "2024-05-03T10:20:00",
-    "dayName": "Tuesday",
-    "ReserverName": "Isinsu",
-    "RoomName": "001",
-    "action": "Deleted"
-  },
-  {
-    "timestamp": "2024-05-03T10:20:00",
-    "dayName": "Tuesday",
     "ReserverName": "Ceyda",
     "RoomName": "001",
     "action": "Added"
@@ -30,8 +16,8 @@
   {
     "timestamp": "2024-05-03T10:20:00",
     "dayName": "Tuesday",
-    "ReserverName": "Ceyda",
-    "RoomName": "001",
+    "ReserverName": "Sila",
+    "RoomName": "002",
     "action": "Deleted"
   }
 ]

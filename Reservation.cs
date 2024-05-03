@@ -1,6 +1,7 @@
-public record Reservation(
-    DateTime Date,
-    DateTime Time,
-    Room Room,
-    string ReserverName
-);
+public class Reservation
+{
+    public string RoomNumber { get; set; }
+    public string ReserverName { get; set; }
+    public DateTime EnterTime { get; set; }
+    public string Day { get; set; }
+}
