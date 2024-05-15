@@ -35,30 +35,30 @@ public class ReservationHandler
         }
     }
 
-private List<Reservation> ReadReservationsFromFile()
-{
-    // Check if the file exists or if it is empty
-    if (!File.Exists(_reservationDataFilePath) || new FileInfo(_reservationDataFilePath).Length == 0)
+    private List<Reservation> ReadReservationsFromFile()
     {
-        // Initialize with an empty list of reservations and write to file
-        var emptyList = new List<Reservation>();
-        UpdateReservationDataFile(emptyList); // Ensure the file is not just created but has valid JSON.
-        return emptyList;
+        // Check if the file exists or if it is empty
+        if (!File.Exists(_reservationDataFilePath) || new FileInfo(_reservationDataFilePath).Length == 0)
+        {
+            // Initialize with an empty list of reservations and write to file
+            var emptyList = new List<Reservation>();
+            UpdateReservationDataFile(emptyList); // Ensure the file is not just created but has valid JSON.
+            return emptyList;
+        }
+
+        string json = File.ReadAllText(_reservationDataFilePath);
+        var reservations = JsonSerializer.Deserialize<List<Reservation>>(json);
+        
+        // Ensure that deserialization results in a valid object list, not null
+        return reservations ?? new List<Reservation>();
     }
 
-    string json = File.ReadAllText(_reservationDataFilePath);
-    var reservations = JsonSerializer.Deserialize<List<Reservation>>(json);
-    
-    // Ensure that deserialization results in a valid object list, not null
-    return reservations ?? new List<Reservation>();
-}
-
-private void UpdateReservationDataFile(List<Reservation> reservations = null)
-{
-    reservations ??= _reservations;  // Use passed reservations or fall back to existing field
-    var reservationsJson = JsonSerializer.Serialize(reservations, new JsonSerializerOptions { WriteIndented = true });
-    File.WriteAllText(_reservationDataFilePath, reservationsJson);
-}
+    private void UpdateReservationDataFile(List<Reservation> reservations = null)
+    {
+        reservations ??= _reservations;  // Use passed reservations or fall back to existing field
+        var reservationsJson = JsonSerializer.Serialize(reservations, new JsonSerializerOptions { WriteIndented = true });
+        File.WriteAllText(_reservationDataFilePath, reservationsJson);
+    }
 
 
     public void AddReservation(string day, string roomNumber, string reserverName, DateTime enterTime)
@@ -98,35 +98,5 @@ private void UpdateReservationDataFile(List<Reservation> reservations = null)
         Console.WriteLine($"\nReservations made by {reserverName} have been removed.\n");
 
         _logHandler.AddLog(new LogRecord(enterTime, day, reserverName, roomNumber, "Deleted"));
-    }
-
-    public void PrintWeeklySchedule()
-    {
-        Console.WriteLine("Weekly Schedule:");
-        
-        for (int i = 0; i < 7; i++)
-        {
-            DayOfWeek dayOfWeek = (DayOfWeek)(((int)DayOfWeek.Monday + i) % 7);
-            string dayOfWeekString = dayOfWeek.ToString();
-            Console.WriteLine($"Day: {dayOfWeekString}");
-
-            foreach (var roomKvp in weeklyReservations[dayOfWeekString])
-            {
-                Room room = roomKvp.Key;
-                List<(DateTime, string)> reservations = roomKvp.Value;
-
-                if (reservations.Count == 0)
-                {
-                    continue;
-                }
-
-                Console.WriteLine($"Room {room.RoomId} ({room.RoomName}):");
-                foreach ((DateTime time, string reserverName) in reservations)
-                {
-                    Console.WriteLine($"  {time:hh:mm tt} - {reserverName}");
-                }
-            }
-            Console.WriteLine();
-        }
     }
 }

@@ -10,7 +10,7 @@ public class FileLogger : ILogger
     public FileLogger(string logFilePath)
     {
         this.logFilePath = logFilePath;
-        // Ensure the log file is initialized properly
+
         if (!File.Exists(logFilePath) || File.ReadAllText(logFilePath).Trim() == "")
         {
             File.WriteAllText(logFilePath, JsonSerializer.Serialize(new List<LogRecord>(), new JsonSerializerOptions { WriteIndented = true }));
