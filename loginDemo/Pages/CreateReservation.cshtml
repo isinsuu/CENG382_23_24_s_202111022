@@ -1,7 +1,7 @@
 ﻿@page
-@model MyApp.Namespace.CreateRoomsModel
+@model MyApp.Namespace.CreateReservationModel
 @{
-    ViewData["Title"] = "Create Rooms";
+    ViewData["Title"] = "Create Reservations";
 }
 
 <style>
@@ -38,9 +38,10 @@
         margin: 0 auto; 
         background-color: rgb(81, 120, 220);
         border: none;
+        border-radius: 8px;
     }
 
-    #create-btn {
+    #createR-btn {
         margin-top: 10px;
     }
 
@@ -56,28 +57,25 @@
     }
 </style>
 
+<h1>Create Reservation</h1>
 
-<h1>Create Rooms</h1>
 <form method="post">
     <div class="form-group">
-        <label asp-for="NewRoom.RoomName">Room Name</label>
-        <input asp-for="NewRoom.RoomName" class="form-control" />
-        <span asp-validation-for="NewRoom.RoomName" class="text-danger"></span>
+        <label for="date">Start Date and Time:</label>
+        <input id="date" type="datetime-local" asp-for="Reservation.DateTime" required min="@DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm")" />
     </div>
+    
 
     <div class="form-group">
-        <label asp-for="NewRoom.Capacity"></label>
-        <input asp-for="NewRoom.Capacity" class="form-control" type="number" min="1"/>
-        <span asp-validation-for="NewRoom.Capacity" class="text-danger"></span>
+        <label for="room">Room:</label>
+        <div class="select">
+            <select id="room" asp-for="Reservation.RoomId" asp-items="@(new SelectList(Model.Rooms, "Id", "RoomName"))" required>
+                <option value="">Select a room</option>
+            </select>           
+        </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" id="create-btn">Create</button>
+    <button type="submit" class="btn btn-primary" id="createR-btn">Create Reservation</button>
 </form>
 
-<a asp-page="/DisplayRooms">Display Rooms</a>
-
-
-
-@section Scripts {
-<partial name="_ValidationScriptsPartial" />
-}
+<a asp-page="/DisplayReservation">Display Reservations</a>

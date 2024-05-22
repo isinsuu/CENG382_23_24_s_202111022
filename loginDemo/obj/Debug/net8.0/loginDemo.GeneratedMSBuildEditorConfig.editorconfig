@@ -54,8 +54,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/90505/Desktop/CENG382/CENG382_23_24_s_202111022/loginDemo/Pages/CreateReservation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlUmVzZXJ2YXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/90505/Desktop/CENG382/CENG382_23_24_s_202111022/loginDemo/Pages/CreateRooms.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlUm9vbXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/90505/Desktop/CENG382/CENG382_23_24_s_202111022/loginDemo/Pages/DisplayReservation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlzcGxheVJlc2VydmF0aW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/90505/Desktop/CENG382/CENG382_23_24_s_202111022/loginDemo/Pages/DisplayRooms.cshtml]
