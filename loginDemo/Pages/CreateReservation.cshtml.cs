@@ -33,6 +33,12 @@ namespace MyApp.Namespace
                 return Page();
             }
 
+            if (Reservation.DateTime.Minute != 0 || Reservation.DateTime.Second != 0)
+            {
+                ModelState.AddModelError("Reservation.DateTime", "Please select a time at the top of the hour.");
+                return Page();
+            }
+
             Reservation.ReservedBy = User.Identity.Name;
             _context.Reservations.Add(Reservation);
             _context.SaveChanges();

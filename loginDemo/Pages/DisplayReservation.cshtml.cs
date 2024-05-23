@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using loginDemo.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyApp.Namespace
@@ -19,7 +20,10 @@ namespace MyApp.Namespace
 
         public void OnGet(string roomName, DateTime? startDate, int? capacity)
         {
-            var query = _context.Reservations.Include(r => r.Room).AsQueryable();  // Include Room data
+            DateTime startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+            DateTime endOfWeek = startOfWeek.AddDays(7);
+
+            var query = _context.Reservations.Include(r => r.Room).AsQueryable(); 
 
             if (!string.IsNullOrEmpty(roomName))
             {
@@ -28,8 +32,8 @@ namespace MyApp.Namespace
 
             if (startDate.HasValue)
             {
-                var endDate = startDate.Value.AddDays(7);
-                query = query.Where(r => r.DateTime >= startDate.Value && r.DateTime <= endDate);
+                var endDate = startDate.Value.AddDays(1); 
+                query = query.Where(r => r.DateTime >= startDate.Value && r.DateTime < endDate);
             }
 
             if (capacity.HasValue)
@@ -39,5 +43,20 @@ namespace MyApp.Namespace
 
             ReservationsList = query.ToList();
         }
+
+        public IActionResult OnPostDelete(int reservationId)
+        {
+            var reservation = _context.Reservations.Find(reservationId);
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+
+            _context.Reservations.Remove(reservation);
+            _context.SaveChanges();
+
+            return RedirectToPage();
+        }
+
     }
 }
