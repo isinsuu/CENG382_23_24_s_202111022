@@ -109,7 +109,7 @@
                     <th>Time</th>
                     @for (var day = 0; day < 7; day++)
                     {
-                        <th>@DateTime.Today.AddDays(day - (int)DateTime.Today.DayOfWeek).ToString("ddd (M/d)")</th>
+                        <th>@Model.startOfWeek.AddDays(day).ToString("ddd (M/d)")</th>
                     }
                 </thead>
                 <tbody>
@@ -121,10 +121,7 @@
                             {
                                 <td>
                                     @{
-                                        var reservationsAtThisTime = Model.ReservationsList
-                                        .Where(r => r.DateTime.Hour == hour && r.DateTime.DayOfWeek == (DayOfWeek)day)
-                                        .ToList();
-                                        foreach (var reservation in reservationsAtThisTime)
+                                        @foreach (var reservation in Model.ReservationsList.Where(r => r.DateTime.Hour == hour && r.DateTime.Date == Model.startOfWeek.AddDays(day).Date))
                                         {
                                             <div class="res-info">
                                                 <div>@reservation.Room.RoomName</div>

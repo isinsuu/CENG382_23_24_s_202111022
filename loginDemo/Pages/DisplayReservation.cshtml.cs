@@ -16,11 +16,16 @@ namespace MyApp.Namespace
             _context = context;
         }
 
+        public DateTime startOfWeek { get; set; }
         public IList<Reservation> ReservationsList { get; set; } = new List<Reservation>();
 
         public void OnGet(string roomName, DateTime? startDate, int? capacity)
         {
-            DateTime startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+            var today = DateTime.Today;
+            int currentDayOfWeek = (int)today.DayOfWeek;
+            int daysUntilMonday = (currentDayOfWeek - (int)DayOfWeek.Monday + 7) % 7;
+            startOfWeek = today.AddDays(-daysUntilMonday);
+
             DateTime endOfWeek = startOfWeek.AddDays(7);
 
             var query = _context.Reservations.Include(r => r.Room).AsQueryable(); 
