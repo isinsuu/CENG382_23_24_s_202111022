@@ -57,6 +57,7 @@ namespace MyApp.Namespace
 
             bool isConflict = _context.Reservations
                 .Any(r => r.DateTime == Reservation.DateTime &&
+                          r.RoomId == Reservation.RoomId &&
                           !r.IsDeleted);
 
             if (isConflict)
