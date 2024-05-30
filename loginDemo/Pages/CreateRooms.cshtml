@@ -61,7 +61,7 @@
 <form method="post">
     <div class="form-group">
         <label asp-for="NewRoom.RoomName">Room Name</label>
-        <input asp-for="NewRoom.RoomName" class="form-control" />
+        <input asp-for="NewRoom.RoomName" class="form-control" required/>
         <span asp-validation-for="NewRoom.RoomName" class="text-danger"></span>
     </div>
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace loginDemo.Models;
+﻿namespace loginDemo.Models;
 
 public partial class Room
 {

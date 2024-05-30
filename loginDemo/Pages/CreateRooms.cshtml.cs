@@ -28,8 +28,24 @@ namespace MyApp.Namespace
                 return Page();
             }
 
+            if (_context.Rooms.Any(r => r.RoomName == NewRoom.RoomName))
+            {
+                ModelState.AddModelError("NewRoom.RoomName", "A room with this name already exists. Enter a unique name.");
+                return Page();
+            }
+
             _context.Rooms.Add(NewRoom);
             _context.SaveChanges();
+
+            var log = new LogInformation{
+                UserId = User.Identity.Name,
+                RoomId = NewRoom.Id,
+                Timestamp = DateTime.Now,
+            };
+
+            _context.LogInformations.Add(log);
+            _context.SaveChanges();
+
             return RedirectToPage("/DisplayRooms");
         }
     }

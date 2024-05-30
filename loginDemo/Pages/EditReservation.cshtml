@@ -1,0 +1,124 @@
+﻿@page "{id:int}"
+@model MyApp.Namespace.EditReservationModel
+@{
+    ViewData["Title"] = "Edit Reservation";
+}
+
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    body {
+        background-color: rgb(221, 233, 244);
+    }
+
+    form {
+        width: 300px;
+        margin: 0 auto;
+        border: 2px solid #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        background: white;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+
+    button[type="submit"] {
+        display: block;
+        margin: 0 auto;
+        background-color: rgb(81, 120, 220);
+        border: none;
+        border-radius: 8px;
+    }
+
+    #edit-btn {
+        margin-top: 10px;
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: rgb(40, 40, 134);
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<h1>Edit Reservation</h1>
+
+@*<form method="post">
+    <input type="hidden" asp-for="Reservation.Id" />
+    <div>
+        <label asp-for="Reservation.RoomId"></label>
+        <select asp-for="Reservation.RoomId" asp-items="Model.Rooms">
+            <option value="">Select Room</option>
+        </select>
+    </div>
+    <div>
+        <label asp-for="Reservation.DateTime"></label>
+        <input asp-for="Reservation.DateTime" type="datetime-local" required/>
+    </div>
+    <button type="submit" class="btn" id="edit-btn">Save</button>
+</form>*@
+
+<form method="post">
+    <input type="hidden" asp-for="Reservation.Id" />
+    <div class="form-group">
+        <div class="form-group">
+        <label asp-for="Reservation.DateTime">Date and Time:</label>
+        <input asp-for="Reservation.DateTime" id="dateTime" type="text" class="form-control" required value="@Model.Reservation.DateTime.ToString("yyyy-MM-dd HH:mm")"/>
+        <span asp-validation-for="Reservation.DateTime" class="text-danger"></span>
+    </div>
+        @*only allowing the user to choose the top of the hours so that it shows clearly on the time table.*@
+    </div>
+
+    <div class="form-group">
+        <label for="room">Room:</label>
+        <div class="select">
+            <select asp-for="Reservation.RoomId" asp-items="Model.Rooms">
+                required>
+                <option value="">Select a room</option>
+            </select>
+        </div>
+        <span asp-validation-for="Reservation.RoomId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn" id="edit-btn">Save</button>
+</form>
+
+<a asp-page="./DisplayReservation">Go Back</a>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            flatpickr("#dateTime", {
+                enableTime: true,
+                noCalendar: false,
+                dateFormat: "Y-m-d H:i",
+                minDate: "today",
+                minuteIncrement: 60,
+                time_24hr: true,
+                defaultDate: "@Model.Reservation.DateTime.ToString("yyyy-MM-dd HH:mm")" // Set default date to the model's DateTime value
+            });
+        });
+    </script>
+}
+

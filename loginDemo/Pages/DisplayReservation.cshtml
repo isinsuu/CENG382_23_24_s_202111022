@@ -121,12 +121,14 @@
                             {
                                 <td>
                                     @{
-                                        @foreach (var reservation in Model.ReservationsList.Where(r => r.DateTime.Hour == hour && r.DateTime.Date == Model.startOfWeek.AddDays(day).Date))
+                                        var reservationsForHour = Model.ReservationsList
+                                            .Where(r => r.DateTime.Hour == hour && r.DateTime.Date == Model.startOfWeek.AddDays(day).Date && !r.IsDeleted);
+                                        foreach (var reservation in reservationsForHour)
                                         {
                                             <div class="res-info">
-                                                <div>@reservation.Room.RoomName</div>
+                                                <div>@reservation.Room?.RoomName</div>
                                                 <div class="link-group">
-                                                    <a class="links" href="/EditReservation?id=@reservation.Id">
+                                                    <a class="links" asp-page="./EditReservation" asp-route-id="@reservation.Id">
                                                         <div class="icon-group">
                                                             <i class="fa-solid fa-pen-to-square"></i>
                                                         </div>

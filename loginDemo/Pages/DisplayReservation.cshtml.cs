@@ -28,7 +28,10 @@ namespace MyApp.Namespace
 
             DateTime endOfWeek = startOfWeek.AddDays(7);
 
-            var query = _context.Reservations.Include(r => r.Room).AsQueryable(); 
+            var query = _context.Reservations
+                                .Include(r => r.Room)
+                                .Where(r => !r.IsDeleted) 
+                                .AsQueryable(); 
 
             if (!string.IsNullOrEmpty(roomName))
             {
@@ -49,16 +52,17 @@ namespace MyApp.Namespace
             ReservationsList = query.ToList();
         }
 
-        public IActionResult OnPostDelete(int reservationId)
+        public async Task<IActionResult> OnPostDeleteAsync(int reservationId)
         {
-            var reservation = _context.Reservations.Find(reservationId);
+            var reservation = await _context.Reservations.FindAsync(reservationId);
             if (reservation == null)
             {
                 return NotFound();
             }
 
-            _context.Reservations.Remove(reservation);
-            _context.SaveChanges();
+            reservation.IsDeleted = true;
+            _context.Reservations.Update(reservation);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage();
         }

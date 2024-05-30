@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace loginDemo.Models;
+﻿namespace loginDemo.Models;
 
 public partial class Reservation
 {
@@ -14,4 +11,6 @@ public partial class Reservation
     public string? ReservedBy { get; set; }
 
     public virtual Room? Room { get; set; }
+
+    public bool IsDeleted { get; set; }
 }
